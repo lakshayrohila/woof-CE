@@ -88,7 +88,7 @@
 							This bitmap image editor specialises in pixel-level editing of images, and can be used as paint program as well.
 						</td>
 						<td>
-							BMP, GIF, JPEG, LBM, LSS16, PAM, PBM, PCX, PGM<small>*</small>, PMM, PNG, PPM, SVG<small>*</small>, TGA, TIFF, WEBP, XBM, XPM
+							BMP, GIF, JPEG, LBM, LSS16, PAM, PBM, PCX, PGM, PMM, PNG, PPM, SVG, TGA, TIFF, WEBP, XBM, XPM
 						</td>
 					</tr>
 					<tr>
@@ -146,156 +146,122 @@
 							PNG, JPEG, TIFF, TGA, GIF, SVG, and so on!
 						</td>
 					</tr>
-						<!-- UPDATED TILL HERE -->
 					<tr>
 						<td>
-							<a href="fig2dev.htm">fig2dev</a>
+							<a href="https://linux.die.net/man/1/fig2dev">fig2dev</a>
 						</td>
 						<td>
-							Converts a fig vector image to a variety of vector and bitmap formats. This version for Puppy has been compiled to support the following vector formats: cgm, pic, ps, emf, eps, pdf, and svg. Also the following bitmap formats: gif, jpeg, pcx, png, ppm, sld, tiff, xbm, xpm.<br>
-							Note that both Figurine and ABS use fig2dev for exporting.
+							Converts a FIG vector image to a variety of vector and bitmap formats.
 						</td>
-						<td></td>
+						<td>
+							CGM, PIC, PS, EMF, EPS, PDF, SVG, GIF, JPEG, PCX, PNG, PPM, SLD, TIFF, XBM, XPM and so on!
+						</td>
 					</tr>
 					<tr>
 						<td>
-							<a href="pstoedit.htm">pstoedit</a>
+							<a href="http://www.calvina.de/pstoedit/">pstoedit</a>
 						</td>
 						<td>
-							The Postscript and PDF viewer <a href="gsview.htm">GSview</a> uses pstoedit to export Postscript and PDF files to various vector formats. Supported formats are ps, ai (Adobe Illustrator), idraw, fig, xfig, tgif, tk, hpgl, pic, mma, mpost, sk (Sketch), kil (Kontour), pdf, java1, java2, dxf, rpl, rib, lwo, dxf.
+							pstoedit is used to export Postscript and PDF files to various vector formats.
 						</td>
-						<td></td>
+						<td>
+							PS, AI, IDRAW, FIG, XFIG, TGIF, TK, HPGL, PIC, MMA, MPOST, SK (Sketch), KIL (Kontour), PDF, JAVA1, JAVA2, DXF, RPL, RIB, LWO, DXF
+						</td>
 					</tr>
 					<tr>
 						<td>
-							<a href="gifsicle/index.html">gifsicle</a>
+							<a href="https://github.com/kohler/gifsicle">gifsicle</a>
 						</td>
 						<td>
 							gifsicle is a console program for constructing animated gifs. There is also a viewer -- note also, Firefox or Opera can play animated gifs. Most importantly, gifsicle can analyse frames and create an animated gif in which subsequent frames only have the changes from the previous frame, greatly reducing size.
 						</td>
-						<td></td>
+						<td>
+							GIF
+						</td>
 					</tr>
 					<tr>
 						<td>
-							<a href="scalerx.htm">scalerx</a>
+							<a href="http://www.scale2x.it/">scalerx</a>
 						</td>
 						<td>
-							scalerx is a superb console program. If you have a small bitmap image and you want to make it bigger, it will have jagged edges, however scalerx analyses the image and smooths the edges. Only works with png images.
+							scalerx is a superb console program. If you have a small bitmap image and you want to make it bigger, it will have jagged edges, however scalerx analyses the image and smooths the edges.
 						</td>
-						<td></td>
+						<td>
+							PNG
+						</td>
 					</tr>
 					<tr>
 						<td>
-							<a href="xli.htm">xli</a>
+							<a href="https://linux.die.net/man/1/qiv">qiv</a>
 						</td>
 						<td>
-							This is a console application to display an image in a window or to load it onto the root window (the desktop background). Supported image types are fbm, Sun Rasterfile, CMU WM Raster, pbm, Faces Project, png, gif, jfif, jpeg, Utah RLE, Windows OS/2 RLE, Photograph on CD, X Window Dump, Targa, McIDAS, G3 FAX, PC Paintbrush, GEM, MacPaint, X Pixmap (xpm), X Bitmap (xbm).
+							qiv is an image viewer developed with gdk/imlib. As a result, qiv is faster than traditional image viewers such as xv or xli.
 						</td>
-						<td></td>
+						<td>
+							GIF, TIFF, XPM, PNG, PPM, PNM, PGM, BMP, JPEG, SVG, ICO, TGA, ICNS, WMF
+						</td>
 					</tr>
 					<tr>
 						<td>
-							<a href="qiv.htm">qiv</a>
+							<a href="https://manpages.debian.org/unstable/grabc/grabc.1.en.html">grabc</a>
 						</td>
 						<td>
-							This does the same as xli and is smaller and faster. qiv replaces xli in Puppy version 2.10 onward.
-						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>Gview</td>
-						<td>
-							Basic application to display an image in a window, used in Puppy 4.xx.
-						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>grabc</td>
-						<td>
-							This is in the menu as "RGB screen color picker", and is a simple application that displays a crosshair that is placed as desired then a left-click samples the underlying color and displays its red-green-blue components.
-						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>Gcolor2</td>
-						<td>
-							This is the color chooser and screen color picker used in Puppy 4.xx.
-						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>netpbm</td>
-						<td>
-							<p>
-								This is a package of graphic file format conversion and manipulation utilities. Puppy has a subset of the full package. Included with Puppy are: anytopnm (just a shell script that determines file type and calls one of the other conversion programs), giftopnm, jpegtopnm, pgmtopbm, pbmtext, pbmtoxbm, pngtopnm, pnmalias, pnmconvol, pnmcut, pnmnlfilt, pnmrotate, pnmscale, pnmsmooth, pnmtops, pnmtotiff, pnmtojpeg, pnmtopng, ppmdither, ppmlabel, ppmrainbow, ppmtogif, ppmtopgm, ppmtoxpm, ppmtobmp, ppmquant, pstopnm, tifftopnm, xbmtopbm, xpmtoppm, xwdtopnm.
-							</p>
-							<p>
-								<i>pbm</i> is a monochrome format, <i>pgm</i> is greyscale, <i>ppm</i> is color, and <i>pnm</i> format covers all three. Many applications in Puppy use these utilities and they are mighty useful in scripts also as input and outputs can be piped. Online documentation is to be found at <a href="http://netpbm.sourceforge.net/">netpbm.sourceforge.net</a>.
-							</p>
-						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>
-							<a href="http://www.gphoto.org/proj/gtkam/">Gtkam</a>
+							grabc is a simple application that displays a crosshair that is placed as desired then a left-click samples the underlying color and displays its red-green-blue components.
 						</td>
 						<td>
-							Acquire photos from a digital camera. This is standard in Puppy 4.xx.
+							-
 						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>
-							<a href="http://www.xsane.org/">Xsane</a>
-						</td>
-						<td>
-								A GUI for acquiring images from a scanner. This is in Puppy 4.xx.
-						</td>
-						<td></td>
 					</tr>
 				</tbody>
 			</table>
-			<caption>*: These file formats may not be savable.</caption>
 		</section>
 		<section>
 			<h2>Video</h2>
-			<p>
-				From version 0.9.6, Puppy is using Xine-libs, which handles a very wide range of audio and video formats.
-			</p>
 			<table>
+				<thead>
+					<tr>
+						<th>Program</th>
+						<th>Notes</th>
+						<th>Supported Video Codecs</th>
+					</tr>
+				</thead>
 				<tbody>
 					<tr>
-						<td>Xine-libs</td>
 						<td>
-							Xine-libs is the backend libraries providing support for a wide range of audio and video formats. Documentation is to be found online: <a href="http://xine.sourceforge.net/">xine.sourceforge.net</a>
+							<a href="https://www.videolan.org/vlc/index.html">VLC</a>
+						</td>
+						<td>
+							VLC is a free and open source cross-platform multimedia player and framework that plays most multimedia files as well as DVDs, Audio CDs, VCDs, and various streaming protocols. See <a href="https://www.videolan.org/vlc/features.html">more of its features!</a>
+						</td>
+						<td>
+							MPEG, DivX, XviD, 3ivX D4, H.261, H.263, H.264, Cinepak, Theora, Dirac, WMV, VC, Sorenson, DV, On2 VP3/VP5/VP6, Indeo Video v3 (IV32), Real Video
 						</td>
 					</tr>
 					<tr>
-						<td>Gxine</td>
 						<td>
-							<p>
-								Gxine is a GUI frontend to Xine-libs, and can play video DVDs, various video files including Quicktime, MPG and AVI.
-							</p>
-							<p>
-								Playing DVDs works real nice, provided that Puppy has correctly identified your DVD drive -- you should find the link /dev/dvd pointing to the actual drive, for example /dev/hdc (or whatever).
-							</p>
+							<a href="http://www.mplayerhq.hu/design7/documentation.html">Mplayer</a>
+						</td>
+						<td>
+							MPlayer is a free and open-source media player software application. See <a href="http://www.mplayerhq.hu/design7/info.html">more of its features!</a>
+						</td>
+						<td>
+							MPEG/VOB, AVI, Ogg/OGM, VIVO, ASF/WMA/WMV, QT/MOV/MP4, RealMedia, Matroska, NUT, NuppelVideo, FLI, YUV4MPEG, FILM, RoQ, PVA
 						</td>
 					</tr>
 					<tr>
-						<td>Mplayer</td>
 						<td>
-							Another multimedia (video and audio) player. Available as a PET package.
+							<a href="https://mpv.io/manual/">MPV</a>
+						</td>
+						<td>
+							mpv is a free media player for the command line. It supports a wide variety of media file formats, audio and video codecs, and subtitle types.
+						</td>
+						<td>
+							See <a href="http://ffmpeg.org/general.html#Supported-File-Formats_002c-Codecs-or-Features">ffmpeg's supported video codecs</a>.
 						</td>
 					</tr>
-					<tr>
-						<td>Pdvdrsab</td>
-						<td>DVD video ripper. Puppy enthusiast 'plinej' has developed this. See 'Multimedia' menu.</td>
-					</tr>
+		<!-- UPDATED TILL HERE -->
 				</tbody>
 			</table>
-			<p>
-				Gxine/Xine can have "codec" files added onto it to extend its capabilites -- see note in Audio section below.
-			</p>
 		</section>
 		<section>
 			<h2>Audio</h2>
