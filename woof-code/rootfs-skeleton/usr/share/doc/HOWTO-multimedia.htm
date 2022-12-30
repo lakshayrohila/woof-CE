@@ -24,6 +24,11 @@
 			margin: 0px !important;
 			text-align: center;
 		}
+
+		table p {
+			padding: 0px;
+			margin: 4px 0px;
+		}
 	</style>
 	<base target="_blank">
 </head>
@@ -239,6 +244,17 @@
 					</tr>
 					<tr>
 						<td>
+							<a href="https://mpv.io/manual/">MPV</a>
+						</td>
+						<td>
+							mpv is a free media player for the command line. It supports a wide variety of media file formats, audio and video codecs, and subtitle types.
+						</td>
+						<td>
+							See <a href="http://ffmpeg.org/general.html#Supported-File-Formats_002c-Codecs-or-Features">ffmpeg's supported video codecs</a>.
+						</td>
+					</tr>
+					<tr>
+						<td>
 							<a href="http://www.mplayerhq.hu/design7/documentation.html">Mplayer</a>
 						</td>
 						<td>
@@ -250,49 +266,59 @@
 					</tr>
 					<tr>
 						<td>
-							<a href="https://mpv.io/manual/">MPV</a>
+							<a href="http://xinehq.de/index.php/faq">gxine</a>
 						</td>
 						<td>
-							mpv is a free media player for the command line. It supports a wide variety of media file formats, audio and video codecs, and subtitle types.
+							gxine is a media player that will handle a wide range of video file formats and use the back-end engine - <a href="http://xinehq.de/">xine-lib</a>.
 						</td>
 						<td>
-							See <a href="http://ffmpeg.org/general.html#Supported-File-Formats_002c-Codecs-or-Features">ffmpeg's supported video codecs</a>.
+							mpeg 1/2/4, ms mpeg, divx, motion jpeg, Cinepak, DV, msvc, ms rle, Sorenson SVQ1/SVQ3, cyuv, roq video, QT RLE, SMC, RPZA, Theora, Indeo 3.1-5.0, Window Media Video, On2 VP3.1, I263, Real Media
 						</td>
 					</tr>
-		<!-- UPDATED TILL HERE -->
 				</tbody>
 			</table>
 		</section>
 		<section>
 			<h2>Audio</h2>
-			<p>
-				Xine-libs and Gxine provide a generic media player, including support for a wide range of audio file formats.
-			</p>
 			<table>
+				<thead>
+					<tr>
+						<th>Program</th>
+						<th>Notes</th>
+						<th>Supported Audio Codecs</th>
+					</tr>
+				</thead>
 				<tbody>
 					<tr>
 						<td>
-							<a href="wavplay.htm">Wavplay</a>
+							<a href="http://www.linuxcertif.com/man/1/wavplay/">wavplay</a>
 						</td>
 						<td>
-							<p>
-								This is a console application that plays and records wav audio files.
-							</p>
-							<p>
-								Note, I have kept this application in Puppy although it is redundant with the advent of Gxine (see below).
-							</p>
+							wavplay is a console application that plays wav audio files.
 						</td>
-					</tr>
-					<tr>
-						<td>Gxine</td>
 						<td>
-							Gxine is a media player that will handle a wide range of audio file formats. Gxine can also play audio streamed from the Internet.<br>
-							Will play audio CDs without requiring an internal cable connecting audio-out on CD-drive to sound card -- other CD players listed below require the cable.
+							WAV
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<a href="ripperX.htm">ripperX</a>
+							<a href="http://xinehq.de/index.php/faq">gxine</a>
+						</td>
+						<td>
+							<p>
+								gxine is a media player that will handle a wide range of audio file formats.
+							</p>
+							<p>
+								gxine can also play audio streamed from the Internet. It will play audio CDs without requiring an internal cable connecting audio-out on CD-drive to sound card -- other CD players listed below require the cable.
+							</p>
+						</td>
+						<td>
+							mpeg, a/52 (ac3), aac, dts, vorbis, pcm, adpcm (MS/IMA/DVI/Dialogic), mu-law and A-law, roq dpcm, Real Media dnet, Real Media 28.8, DivX (WMA), GSM 6.10, FLAC, NSF, Speex, MS GSM, Intel Music Coder, Voxware Metasound, ACELP.net, dnet, QDM
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="https://manpages.ubuntu.com/manpages/trusty/man1/ripperX.1.html">ripperX</a>
 						</td>
 						<td>
 							<p>
@@ -302,67 +328,59 @@
 								You could use ripperX as just a CD player. One great thing is the support for cddb -- if connected to the Internet, just click the "cddb" button and all the CD song titles will get downloaded.
 							</p>
 						</td>
-					</tr>
-					<tr>
-						<td>Asunder</td>
 						<td>
-							Rips songs off audio CDs.
-						</td>
-					</tr>
-					<tr>
-						<td>RipOff</td>
-						<td>
-							Rips songs off audio CDs. Default in Puppy 4.xx.
-						</td>
-					</tr>
-					<tr>
-						<td>Pcdripper</td>
-						<td>
-							Rips songs off audio CDs. Also in Puppy 4.xx.
-						</td>
-					</tr>
-					<tr>
-						<td>GplayCD</td>
-						<td>
-							Plays audio CDs. Gxine and ripperX can also play audio CDs.
-						</td>
-					</tr>
-					<tr>
-						<td>XfreeCD</td>
-						<td>
-							Plays audio CDs and supports cddb.<br>
-							Note, hangs if a CD not inserted before starting this app.<br>
-							Project home page: <a shref="http://xfreecd.sourceforge.net/">http://xfreecd.sourceforge.net/</a>
+							<p>
+								Imports:- CD audio tracks
+							</p>
+							<p>
+								Exports:- Ogg, MP3, FLAC
+							</p>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<a href="cdp.htm">cdplay</a>
+							<a href="http://littlesvr.ca/asunder/">Asunder</a>
+						</td>
+						<td>
+							Asunder is a free and open-source graphical audio CD ripper program.
+						</td>
+						<td>
+							<p>
+								Imports:- CD audio tracks
+							</p>
+							<p>
+								Exports:- WAV, MP3, Ogg Vorbis, FLAC, Opus, Wavpack, Musepack, AAC, and Monkey's audio files
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="http://www.linuxcertif.com/man/1/cdplay/">cdplay</a>
 						</td>
 						<td>
 							Console application to play audio CDs.
 						</td>
-					</tr>
-					<tr>
 						<td>
-							<a href="gcombust/FAQ.html">Gcombust</a>
-						</td>
-						<td>
-							Can be used to create audio CDs from wav or mp3 files.
+							Imports:- CD audio tracks
 						</td>
 					</tr>
 					<tr>
-						<td>WishCD</td>
 						<td>
-							Can be used to create audio CDs from wav files.
+							<a href="https://linux.die.net/man/1/graveman">graveman!</a>
+						</td>
+						<td>
+							graveman! can be used to burn audio CDs from audio files. See <a href="https://www.nongnu.org/graveman/main.html">graveman's home page</a>.
+						</td>
+						<td>
+							<p>
+								Imports:- WAV, Ogg, MP3, Flac
+							</p>
+							<p>
+								Exports:- CD audio tracks
+							</p>
 						</td>
 					</tr>
-					<tr>
-						<td>Graveman</td>
-						<td>
-							Can be used to create audio CDs
-						</td>
-					</tr>
+<!----------------------------------------------------------- UPDATED TILL HERE ------------------------------------------------------------->
 					<tr>
 						<td>
 							<a href="setvol.txt">setvol</a>
