@@ -4,6 +4,16 @@
 	<title>Internationalization</title>
 	<meta charset="utf-8">
 	<link href="./manual.css" rel="stylesheet" type="text/css">
+	<style>
+		inline-code {
+			background-color: #eee;
+			font-family: monospace;
+			padding: 3px 4px;
+			display: inline-block;
+			margin: 1px 0px;
+		}
+	</style>
+	<base target="_blank">
 </head>
 <body>
 	<a href="#" class="scroll_back_button" target="_self">&uArr;</a>
@@ -13,59 +23,82 @@
 			<img class="header-logo" alt="Logo" src="puppylogo96.png">
 			<h1>HOWTO internationalize applications</h1>
 		</header>
-		<p>Page updated May 12, 2013</p>
+		<p style="text-align: right;">
+			<small>Page Updated: <i>Jan 03, 2023</i></small>
+		</p>
 		<p>
-			Internationalization of applications and scripts in Puppy Linux has become extremely easy, with MoManager, a GUI application.
+			Internationalization of applications and scripts in Puppy Linux has become extremely easy, with <b>MoManager</b>, a GUI application.
+		</p>
+		<p>
+			If you are writing software for Puppy and want that your application be internationalized, or if you want to create translations of Puppy in your language, please read this help page.
 		</p>
 		<section>
-			<h2>Scripts internationalized with 'gettext'</h2>
+			<h2>Creating your own scripts that need internationalization</h2>
 			<p>
-				There are a lot of scripts in Puppy that use 'gettext' for translating. Here are some in /usr/sbin:
-				<ul class="code">
-					<li>connectwizard</li>
-					<li>hostname-set</li>
-					<li>keymap-set</li>
-					<li>mousecheck</li>
-					<li>quicksetup</li>
-					<li>shutdownconfig</li>
+				There are a lot of scripts in Puppy that use <inline-code>gettext</inline-code> for translating. For example, here are some in the woof-CE:
+				<ul>
+					<li>
+						<a href="https://github.com/puppylinux-woof-CE/woof-CE/blob/testing/woof-code/rootfs-skeleton/usr/sbin/Pudd">Pudd</a>
+					</li>
+					<li>
+						<a href="https://github.com/puppylinux-woof-CE/woof-CE/blob/testing/woof-code/rootfs-skeleton/usr/sbin/alsawizard">alsawizard</a>
+					</li>
+					<li>
+						<a href="https://github.com/puppylinux-woof-CE/woof-CE/blob/testing/woof-code/rootfs-skeleton/usr/sbin/bcrypt_gui">bcrypt_gui</a>
+					</li>
+					<li>
+						<a href="https://github.com/puppylinux-woof-CE/woof-CE/blob/testing/woof-code/rootfs-skeleton/usr/sbin/connectwizard">connectwizard</a>
+					</li>
+					<li>
+						<a href="https://github.com/puppylinux-woof-CE/woof-CE/blob/testing/woof-code/rootfs-skeleton/usr/sbin/fontmanager">fontmanager</a>
+					</li>
+					<li>
+						<a href="https://github.com/puppylinux-woof-CE/woof-CE/blob/testing/woof-code/rootfs-skeleton/usr/sbin/logout_gui">logout_gui</a>
+					</li>
 				</ul>
+
 				Inside each script you will find a line like this:
+
 				<code>export TEXTDOMAIN=myapp</code>
-				MoManager finds all scripts with this entry, which confirms that it uses 'gettext', and offers a GUI interface for translating each script. You do not have to learn the commandline tools for translating, the GUI interface makes it easy.
+
+				MoManager finds all scripts with this entry, which confirms that it uses <inline-code>gettext</inline-code>, and offers a GUI interface for translating each script. You do not have to learn the commandline tools for translating, the GUI interface makes it easy.
 			</p>
 			<p>
-				Basically, MoManager will create a .pot file for the application, in the above example that will be 'myapp.pot'. Note that multiple scripts can have the same domainname 'myapp' and just the one 'myapp.pot' will be created. So, if your application has several scripts, you don't have to have a .pot for each (but you can if you want), just have the one .pot -- this is more efficient if there are common text strings to be translated in the scripts, and is simpler just to have the one .pot file.
+				Basically, MoManager will create a <inline-code>.pot</inline-code> file for the application; for example if the app is named <inline-code>myapp</inline-code>, then the .pot file will be <inline-code>myapp.pot</inline-code>. Note that multiple scripts can have the same <b>domain-name</b> (<inline-code>TEXTDOMAIN</inline-code>) set as <inline-code>myapp</inline-code> (for example), and hence just one .pot file, named <inline-code>myapp.pot</inline-code>, will be created. So, if your application has several scripts, you don't have to have a .pot for each, if you want then you can use a single .pot as well (i.e. set the same domain-name) -- this is more efficient if there are common text strings to be translated in the scripts, and is easier to be translated as well.
 			</p>
 			<p>
-				One technical detail: please place the "export ..." at column one, and do not place quotes around "myapp", the line in the script should look just like I have shown:
+				<b>NOTE:</b> Please place the <inline-code>export ...</inline-code> at column one, and do not place quotes around <inline-code>myapp</inline-code> (like <inline-code>"myapp"</inline-code> or <inline-code>'myapp'</inline-code>). The line in the script should look just like this:
 				<code>export TEXTDOMAIN=myapp</code>
-				.pot files are "translation files", which you then have to insert the translations for a particular language. When that is done, it becomes a .po file, and it is then compiled to a binary form and becomes a .mo file. The compiled .mo files are kept at /usr/share/locale. MoManager handles these conversions for you.
+			</p>
+			<p>
+				<inline-code>.pot</inline-code> files are '<i>translation files</i>', for which you then have to insert the translations for a particular language. When that is done, it becomes a <inline-code>.po</inline-code> file, and then it is then compiled to a binary form and becomes a <inline-code>.mo</inline-code> file. The compiled .mo files are kept at <inline-code>/usr/share/locale</inline-code>. MoManager handles these conversions for you.
 			</p>
 			<section>
 				<h3>Pre-existing .pot files</h3>
 				<p>
-					MoManager will create a .pot file from the script, however the commandline-tool (xgettext) to extract the text strings from the script and create the .pot file does not always work properly. An example is /usr/sbin/xxx -- in this case, we have a pre-existing .pot file, /usr/share/doc/nls/xxx/xxx.pot.
+					MoManager use command-line tool- <inline-code>xgettext</inline-code> to extract text strings from a script and create a .pot file from it. However this command-line tool may not always work properly. So, whenever MoManager finds an already created .pot for a program, at the location <inline-code>/usr/share/doc/nls/xxx/xxx.pot</inline-code>, it uses that .pot file instead.
 				</p>
 				<p>
-					MoManager will automatically use any pre-existing .pot file that it finds in /usr/share/doc/nls, rather than use xgettext to extract the strings from the script(s).
+					Note that MoManager only searches the directory <inline-code>/usr/share/doc/nls</inline-code> for any existing .pot file.
 				</p>
 			</section>
 		</section>
 		<section>
-			<h2>MoManager translation manager</h2>
+			<h2>Internationalizing Content using MoManager</h2>
 			<p>
-				MoManager is a GUI application written by me (Barry Kauler) that makes it very easy for anyone to create non-English translations for applications in Puppy. You must have a Puppy built from a Woof version later than February 14, 2012, however if you want to use MoManager to create a "langpack" for a particular language it is recommended to use the very latest Puppy built from latest Woof -- see my blog (<a href="http://bkhome.org/blog2/">http://bkhome.org/blog2</a>) for announcements of Puppy builds.
+				MoManager is a GUI application written by Barry Kauler that makes it very easy for anyone to create non-English translations for applications in Puppy. All latest Puppies will have MoManager in them, which was firstly introduced to Puppy through '<i>Woof</i>' (later moved to <a href="https://github.com/puppylinux-woof-CE/woof-CE">woof-CE</a>) on '<i>February 14, 2012</i>'. If you want to use MoManager to create a '<i>langpack</i>' for a particular language it is recommended to use the very latest Puppy built from latest <a href="https://github.com/puppylinux-woof-CE/woof-CE">woof-CE</a>, which is not more than a month older. So, you may need to build your own Puppy for this process - the procedure can be found at <a href="https://github.com/puppylinux-woof-CE/woof-CE/wiki/Building-a-Puppy-on-GitHub">'Building a Puppy on GitHub' Github Wiki page</a>.
 			</p>
 			<p>
 				MoManager is for creating and updating translation files for scripts, XML files, menu files, any other data text files, and binary executables.
 			</p>
 			<p>
-				Scripts are applications that are text files, usually written in Bash or Ash (or Perl, Python, Tcl, etc.). Note, if you are unfamiliar with 'scripts', don't worry, they are just applications.
+				Scripts are applications that are executable text files, usually written in <inline-code>Bash</inline-code> or <inline-code>Ash</inline-code>, or interpreted programming languages like <inline-code>Perl</inline-code>, <inline-code>Python</inline-code>, <inline-code>Tcl</inline-code>, etc. (a more technical term for scripts would be - '<i>source files of interpreted languages</i>'). This section of the help file deals with 'creating langpacks for applications' only, and not about creating scripts themselves.
 			</p>
 			<p>
-				To use MoManager, the best thing to do is just go ahead and use it. You will find it in the 'Utility' menu. Once started, you will see two columns of drop-down lists, one list is of files that already have a translation file for your language (on left side), the other list is for files that do not yet have a translation file. if you select a file from the formerlist, you may update the translation, and in the latter case you may create a new translation file.
+				To use MoManager, the best thing to do is just go ahead and use it. You will find it in the <b>Utility</b> menu. Once started, you will see two columns of drop-down lists, one list is of files that already have a translation file for your language (on left side), the other list is for files that do not yet have a translation file. if you select a file from the formerlist, you may update the translation, and in the latter case you may create a new translation file.
 			</p>
 			<p>
+<!----------------------------------------------------------- UPDATED TILL HERE -------------------------------------------------------------->
 				<div>Here is a snapshot of the main window, Puppy running with de_DE locale:</div>
 				<img style=" width: 862px; height: 664px;" alt="MoManager" src="https://puppylinux.com/development/MoManager.png">
 			</p>
