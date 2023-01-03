@@ -12,6 +12,14 @@
 			display: inline-block;
 			margin: 1px 0px;
 		}
+
+		li:not(last-child) {
+			margin-bottom: 20px;
+		}
+
+		li p {
+			margin: 10px 0px;
+		}
 	</style>
 </head>
 <body>
@@ -49,10 +57,20 @@
 				Pudd can copy an entire drive or a partition. There are some restrictions here, that I hope to alleviate in future versions of Pudd:
 				<ul>
 					<li>
-						A drive can only be copied to another identical drive. For example, you can copy a 2GB SD card to another 2GB SD card (I don't know yet if there are any problems copying between different models/makes of SD card, or other types of Flash cards).
+						<p>
+							<b>A drive can only be copied to another identical drive:</b>
+						</p>
+						<p>
+							For example, you can copy a <inline-code>2GB SD card</inline-code> to another <inline-code>2GB SD card</inline-code>, though it is not yet known that if there are any problems copying between different models/makes of SD card, or other types of Flash cards).
+						</p>
 					</li>
 					<li>
-						A partition can be copied to another partition that is the same size or bigger. There are some details to be worked out here: for now, they must be set to have the same filesystem type. The source filesystem will overwrite whatever is in the destination partition. So far, Pudd can only resize <inline-code>ext2</inline-code>, <inline-code>ext3</inline-code> and <inline-code>ext4</inline-code> filesystems to fill the destination partition.
+						<p>
+							<b>A partition can be copied to another partition that is the same size or bigger:</b>
+						</p>
+						<p>
+							There are some details to be worked out here: for now, they must be set to have the same filesystem type. The source filesystem will overwrite whatever is in the destination partition. So far, Pudd can only resize <inline-code>ext2</inline-code>, <inline-code>ext3</inline-code> and <inline-code>ext4</inline-code> filesystems to fill the destination partition.
+						</p>
 					</li>
 				</ul>
 			</p>
