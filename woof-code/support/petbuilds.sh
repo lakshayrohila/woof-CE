@@ -75,8 +75,18 @@ for NAME in $PETBUILDS; do
             rm -rf petbuild-rootfs-complete
             cp -a rootfs-complete petbuild-rootfs-complete
 
-            rm -f sh petbuild-rootfs-complete/bin/sh
+            rm -f petbuild-rootfs-complete/bin/sh
             ln -s bash petbuild-rootfs-complete/bin/sh
+
+            # these can be skipped, rc.update generates this cache
+            for PROG in update-mime-database gtk-update-icon-cache glib-compile-schemas; do
+                rm -f petbuild-rootfs-complete/usr/bin/$PROG
+                cat << EOF > petbuild-rootfs-complete/usr/bin/$PROG
+#!/bin/sh
+echo "Skipping $PROG"
+EOF
+                chmod 755 petbuild-rootfs-complete/usr/bin/$PROG
+            done
 
             cp -f /etc/resolv.conf petbuild-rootfs-complete/etc/
             cp -f ../packages-templates/ca-certificates/pinstall.sh petbuild-rootfs-complete/
@@ -118,10 +128,10 @@ for NAME in $PETBUILDS; do
                 ln -s bash petbuild-rootfs-complete/bin/sh
 
                 if [ ! -f ../petbuild-cache/busybox ]; then
-                    wget -t 1 -T 15 https://busybox.net/downloads/busybox-1.35.0.tar.bz2
-                    tar -xjf busybox-1.35.0.tar.bz2
-                    cp -f ../rootfs-petbuilds/busybox/DOTconfig busybox-1.35.0/.config
-                    cd busybox-1.35.0
+                    wget -t 1 -T 15 https://busybox.net/downloads/busybox-1.36.0.tar.bz2
+                    tar -xjf busybox-1.36.0.tar.bz2
+                    cp -f ../rootfs-petbuilds/busybox/DOTconfig busybox-1.36.0/.config
+                    cd busybox-1.36.0
                     make CONFIG_STATIC=y
                     install -D -m 755 busybox ../../petbuild-cache/busybox || exit 1
                     cd ..

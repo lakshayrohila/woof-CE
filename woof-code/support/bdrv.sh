@@ -6,8 +6,9 @@
 
 debootstrap=`command -v debootstrap || :`
 if [ -z "$debootstrap" ]; then
-	echo "WARNING: debootstrap is missing"
+	echo -n "WARNING: debootstrap is missing. Press ENTER to continue build without apt support or CTRL-C to abort the build: "
 	[ -z "$GITHUB_ACTIONS" ] || exit 1
+	read isitbad
 	exit 0
 fi
 
@@ -60,25 +61,51 @@ cat /etc/resolv.conf > bdrv/etc/resolv.conf
 # configure the package manager
 case "$DISTRO_BINARY_COMPAT" in
 debian)
-	echo "deb ${MIRROR} ${DISTRO_COMPAT_VERSION} main contrib non-free" > bdrv/etc/apt/sources.list
-
-	if [ "$DISTRO_COMPAT_VERSION" != "sid" ]; then
-		cat << EOF >> bdrv/etc/apt/sources.list
+	case "$DISTRO_COMPAT_VERSION" in
+	sid)
+		cat << EOF > bdrv/etc/apt/sources.list
+deb ${MIRROR} ${DISTRO_COMPAT_VERSION} main contrib non-free non-free-firmware
+EOF
+		;;
+	stretch|buster|bullseye)
+		cat << EOF > bdrv/etc/apt/sources.list
+deb ${MIRROR} ${DISTRO_COMPAT_VERSION} main contrib non-free
 deb ${MIRROR} ${DISTRO_COMPAT_VERSION}-updates main contrib non-free
 deb ${MIRROR}-security ${DISTRO_COMPAT_VERSION}-security main contrib non-free
 EOF
-	fi
+		;;
+	*)
+		cat << EOF > bdrv/etc/apt/sources.list
+deb ${MIRROR} ${DISTRO_COMPAT_VERSION} main contrib non-free non-free-firmware
+deb ${MIRROR} ${DISTRO_COMPAT_VERSION}-updates main contrib non-free non-free-firmware
+deb ${MIRROR}-security ${DISTRO_COMPAT_VERSION}-security main contrib non-free non-free-firmware
+EOF
+		;;
+	esac
 	;;
 
 devuan)
-	echo "deb ${MIRROR} ${DISTRO_COMPAT_VERSION} main contrib non-free" > bdrv/etc/apt/sources.list
-
-	if [ "$DISTRO_COMPAT_VERSION" != "ceres" ]; then
-		cat << EOF >> bdrv/etc/apt/sources.list
+	case "$DISTRO_COMPAT_VERSION" in
+	ceres)
+		cat << EOF > bdrv/etc/apt/sources.list
+deb ${MIRROR} ${DISTRO_COMPAT_VERSION} main contrib non-free non-free-firmware
+EOF
+		;;
+	ascii|beowulf|chimaera)
+		cat << EOF > bdrv/etc/apt/sources.list
+deb ${MIRROR} ${DISTRO_COMPAT_VERSION} main contrib non-free
 deb ${MIRROR} ${DISTRO_COMPAT_VERSION}-updates main contrib non-free
 deb ${MIRROR} ${DISTRO_COMPAT_VERSION}-security main contrib non-free
 EOF
-	fi
+		;;
+	*)
+		cat << EOF > bdrv/etc/apt/sources.list
+deb ${MIRROR} ${DISTRO_COMPAT_VERSION} main contrib non-free non-free-firmware
+deb ${MIRROR} ${DISTRO_COMPAT_VERSION}-updates main contrib non-free non-free-firmware
+deb ${MIRROR} ${DISTRO_COMPAT_VERSION}-security main contrib non-free non-free-firmware
+EOF
+		;;
+	esac
 	;;
 
 ubuntu)
@@ -129,10 +156,30 @@ echo "NoDisplay=true" >> bdrv/usr/share/applications/gdebi.desktop
 
 rm -f bdrv/etc/resolv.conf
 
+mkdir -p bdrv/usr/sbin
+cat << EOF > bdrv/usr/sbin/auto-setup-spot
+#!/bin/ash
+
+# this script is a best-effort attempt to configure problematic applications to run as spot
+
+PROGS=""
+while read PROG; do
+	PROG=\${PROG##*/}
+	echo "Auto-configuring \$PROG to run as spot ..."
+	PROGS="\$PROGS \$PROG=true"
+done < <(grep -hE '^/usr/bin/(firefox|firefox-[a-z]+|google-chrome-[a-z]+|chromium|chromium-browser|vivaldi-[a-z]+|brave-browser|microsoft-edge-[a-z]+|transmission-gtk|transmission-cli|transmission-daemon|seamonkey|sylpheed|claws-mail|thunderbird|vlc|steam|code|librewolf|hexchat)$' /var/lib/dpkg/info/*.list)
+
+[ -n "\$PROGS" ] && setup-spot \$PROGS
+
+exit 0
+EOF
+chmod 755 bdrv/usr/sbin/auto-setup-spot
+
 cat << EOF >> bdrv/etc/apt/apt.conf.d/00puppy
 # https://github.com/debuerreotype/debuerreotype/blob/6952be0a084e834bd25aa623c94f6ad342899b55/scripts/debuerreotype-minimizing-config#L88
 DPkg::Post-Invoke { "rm -f /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb || true"; };
 APT::Update::Post-Invoke { "rm -f /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb || true"; };
+DPkg::Post-Invoke { "/usr/sbin/auto-setup-spot"; };
 EOF
 tar -C bdrv -c var/cache/apt/archives | gzip -1 > ${CACHE_DIR}/archives-${DISTRO_BINARY_COMPAT}-${DISTRO_COMPAT_VERSION}.tar.gz
 
@@ -194,6 +241,14 @@ mkdir -p bdrv/usr/lib
 sed "s/^ID=.*/ID=${DISTRO_BINARY_COMPAT}/" rootfs-complete/usr/lib/os-release > bdrv/usr/lib/os-release
 echo "VERSION_CODENAME=${DISTRO_COMPAT_VERSION}" >> bdrv/usr/lib/os-release
 chmod 644 bdrv/usr/lib/os-release
+
+# add-shell needs these
+if [ "$USR_SYMLINKS" = "yes" ]; then
+	ln -s chown-FULL bdrv/usr/bin/chown
+else
+	ln -s chown-FULL bdrv/bin/chown
+fi
+ln -s realpath-FULL bdrv/usr/bin/realpath
 
 # open .deb files with gdebi
 if [ -e rootfs-complete/usr/local/bin/rox ]; then
