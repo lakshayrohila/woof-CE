@@ -587,6 +587,7 @@ no|rox-filer||exe
 yes|rsync|rsync|exe,dev||deps:yes
 no|rtmpdump|rtmpdump,librtmp1,librtmp-dev,flvstreamer|exe,dev,doc,nls
 no|rxvt-unicode||exe,dev>null,doc,nls
+yes|samba||exe,dev,doc,nls
 no|sane-backends||exe,dev,doc,nls
 no|scale2x||exe
 no|sdl|libsdl1.2debian,libsdl-image1.2,libwebp6|exe,dev,doc,nls

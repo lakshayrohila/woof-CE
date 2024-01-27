@@ -1268,6 +1268,11 @@ if [ "$SDFLAG" = "" ] ; then #120506
 	fi
 fi
 
+# SAMBA FILES TEST:
+echo "SAMBA FILES TEST:"
+find ./ -name *samba*
+find ./ -name *smb*
+
 #==================================================================================
 
 function create_image() {
