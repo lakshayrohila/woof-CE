@@ -1076,6 +1076,11 @@ else
 fi
 echo
 
+echo "DIODON CONFIG:"
+cat /usr/share/glib-2.0/schemas/net.launchpad.Diodon.gschema.xml
+echo "-----"
+find . -iname *diodon*
+
 #-------------------------
 #before building puppy.sfs from rootfs-complete, check for any invalid symlinks
 #and move them to the devx...
