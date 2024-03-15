@@ -2,7 +2,7 @@
 #  i) set "add-images" = true
 # ii) set "instant-paste" = false
 
-DIODON_SCHEMA="/usr/share/glib-2.0/schemas/net.launchpad.Diodon.gschema.xml"
+DIODON_SCHEMA="./usr/share/glib-2.0/schemas/net.launchpad.Diodon.gschema.xml"
 
 awk '{ if ($0 ~ /<key name="add-images"/) {
         add_images = 1
