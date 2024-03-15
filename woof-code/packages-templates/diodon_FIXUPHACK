@@ -1,0 +1,23 @@
+# change diodon's preferences:
+#  i) set "add-images" = true
+# ii) set "instant-paste" = false
+
+DIODON_SCHEMA="/usr/share/glib-2.0/schemas/net.launchpad.Diodon.gschema.xml"
+
+awk '{ if ($0 ~ /<key name="add-images"/) {
+        add_images = 1
+    }
+    if (add_images && $0 ~ /<default>false<\/default>/) {
+        sub(/<default>false<\/default>/, "<default>true</default>")
+        add_images = 0
+    } else if ($0 ~ /<key name="instant-paste"/) {
+        instant_paste = 1
+    }
+    if (instant_paste && $0 ~ /<default>true<\/default>/) {
+        sub(/<default>true<\/default>/, "<default>false</default>")
+        instant_paste = 0
+    }
+    print
+}' $DIODON_SCHEMA > ${DIODON_SCHEMA}.changed
+
+mv ${DIODON_SCHEMA}.changed $DIODON_SCHEMA
