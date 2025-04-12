@@ -870,6 +870,8 @@ if [ $CROSSBUILD -eq 0 -o -n "$QEMU" ];then
 	# 'chooselocale' is called from /etc/rc.d/rc.country at first boot and
 	# pre-creating this table speeds things up. 111123
 	chroot rootfs-complete /usr/sbin/chooselocale composeonly
+	chroot rootfs-complete localedef -f ISO-8859-1 -i en_US --no-archive en_US
+	chroot rootfs-complete localedef -f UTF-8 -i en_US --no-archive en_US.utf8
 else
 	#*** cross-build
 	touch rootfs-complete/etc/gtk-2.0/gtk.immodules
@@ -1013,7 +1015,7 @@ exec $value \"\$@\"" > ${DRV_TGT}/usr/local/bin/$field
 	chmod 755 ${DRV_TGT}/usr/local/bin/$field
 done
 
-if [ -e rootfs-complete/usr/local/apps/ROX-Filer/AppRun ]; then
+if [ -e rootfs-complete/usr/local/apps/ROX-Filer/AppRun -o "$DISTRO_VARIANT" = "xwayland" ]; then
 	echo "Checking for missing default apps ..."
 	for default in rootfs-complete/usr/local/bin/default* ; do
 		app=${default##*/}

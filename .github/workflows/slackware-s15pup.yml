@@ -16,7 +16,7 @@ jobs:
           - arch: x86
             compat-distro: slackware
             compat-distro-version: s15pup32
-            kernel: 5.10.x
+            kernel: 5.15.x
     if: github.repository == 'puppylinux-woof-CE/woof-CE'
     uses: ./.github/workflows/build.yml
     with:
@@ -27,4 +27,4 @@ jobs:
       compat-distro-version: ${{ matrix.compat-distro-version }}
       kernel: ${{ matrix.kernel }}
       artifact: ${{ matrix.compat-distro }}-${{ matrix.compat-distro-version }}-${{ github.run_number }}
-      retention: 30
+      retention: 31

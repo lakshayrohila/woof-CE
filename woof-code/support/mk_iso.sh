@@ -432,10 +432,20 @@ EOF
 	CER=
 	FONT=devx/usr/share/grub/unicode.pf2
 elif [ -e "${PX}/usr/local/frugalpup" ] ; then
-	UEFI_ISO=yes
+	UEFI_ISO=
 	FPGRUB2XZ=`find $PX/usr/local/frugalpup -maxdepth 1 -name 'grub2-efi.tar.xz'`
 	FPBOOT=/tmp/grub2/EFI/boot
 	CER=/tmp/grub2/puppy.cer
+	if [ "$FPGRUB2XZ" ] ; then
+		UEFI_ISO=yes
+	else
+		FPGRUB2XZ=`find $PX/usr/local/frugalpup -maxdepth 1 -name 'grub2-efi-bin.tar.xz'`
+		if [ "$FPGRUB2XZ" ] ; then
+			UEFI_ISO=yes
+			CER=
+			FPBOOT=/tmp/grub2
+		fi
+	fi
 	FONT=$PX/usr/share/boot-dialog/font.pf2
 else
 	UEFI_ISO=
@@ -517,6 +527,15 @@ case ${DISTRO_FILE_PREFIX} in
 	[Tt]ahr*)   pic='tahr.png'   ;;
 	[Ss]lacko*) pic='slacko.png' ;;
 	[Xx]enial*) pic='xenial.png' ;;
+	*)
+		if [ -f ${PX}/usr/share/boot-dialog/${DISTRO_FILE_PREFIX}.svg ] ; then
+			sed -i "s/Puppy Linux/${DISTRO_NAME}/" ${PX}/usr/share/boot-dialog/${DISTRO_FILE_PREFIX}.svg
+			if chroot ${PX} rsvg-convert -w 800 -h 600 -o /usr/share/boot-dialog/${DISTRO_FILE_PREFIX}.png /usr/share/boot-dialog/${DISTRO_FILE_PREFIX}.svg ; then
+				pic="${DISTRO_FILE_PREFIX}.png"
+				chroot ${PX} sh -c "pngtopnm /usr/share/boot-dialog/${DISTRO_FILE_PREFIX}.png | pnmtojpeg > /usr/share/boot-dialog/splash.jpg.new" && mv -vf ${PX}/usr/share/boot-dialog/splash.jpg{.new,} || rm -vf ${PX}/usr/share/boot-dialog/splash.jpg.new
+			fi
+		fi
+		;;
 esac
 echo $pic
 if [ -f ${PX}/usr/share/boot-dialog/${pic} ] ; then
